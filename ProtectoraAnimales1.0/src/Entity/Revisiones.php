@@ -18,11 +18,6 @@ class Revisiones
     private $id;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $historial;
-
-    /**
      * @ORM\Column(type="date", nullable=true)
      */
     private $fecha;
@@ -40,18 +35,6 @@ class Revisiones
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getHistorial(): ?int
-    {
-        return $this->historial;
-    }
-
-    public function setHistorial(?int $historial): self
-    {
-        $this->historial = $historial;
-
-        return $this;
     }
 
     public function getFecha(): ?\DateTimeInterface

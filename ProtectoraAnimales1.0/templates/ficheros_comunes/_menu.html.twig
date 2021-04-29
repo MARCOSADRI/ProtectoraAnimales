@@ -1,0 +1,21 @@
+{# Hoja de estilos para el menú #}
+<link href="{{ asset('css/menu.css') }}" type="text/css" rel="stylesheet"/>
+<nav class="navbar fixed-top navbar-expand navbar-dark bg-dark">
+  <img id="imgCabecera" src="./img/sonp.png"/> 
+  <span id="mensaje">
+    <a class="navbar-brand">
+      {# Si está logueado muestra el usuario, si no muestra el otro mensaje #}
+      {{ app.user ? "Usuario: " ~ app.user.username : "Inicia sesión para continuar"}}
+    </a>
+  </span>
+  
+  {# Caso de que el usuario esté logueado #}
+  {% if app.user %}
+    
+  {% else %}
+    <div id="botones">
+      <a class="nav-link btn btn-light" href="{{ path('app_login') }}">Login</a>
+      <a class="nav-link btn btn-light" href="{{ path('app_registro') }}">Registrarse</a>
+    </div>
+  {% endif %}
+</nav>

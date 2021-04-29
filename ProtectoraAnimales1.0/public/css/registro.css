@@ -1,0 +1,15 @@
+body{
+    background-color: #faf4fa;
+}
+#campo{
+    margin-top: 10%;
+    box-shadow: 5px 10px 10px rgb(82, 77, 77);
+    font-family: 'Nunito Sans', sans-serif;
+}
+.card-header{
+    /* background-color: #f5e1b7; */
+    border-radius: 3px;
+}
+.titulo{
+    font-family: 'Caveat', cursive;
+}

@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Protectora SOPP{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('css/login.css') }}" type="text/css" rel="stylesheet"/>
+    <!-- Caveat Regular 400 -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat&display=swap" rel="stylesheet"> 
+    <!-- Nunito Sans -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200&display=swap" rel="stylesheet"> 
+{% endblock %}
+ 
+{% block body %}
+    <div class="row justify-content-center">
+        <div class="col-md-4 text-center">
+            <div class="card" id="login"> {# Inicio del card #}
+                <div class="card-header text-center"> {# Cabecera del card #}
+                    <h1 class="tituloBold">Protectoras SONP</h1>
+                    <p>¡Accede para una <strong>"Segunda Oportunidad Para nuestros Peludos"</strong>!</p>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <form method="post">
+                            {% if error %}
+                                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                            {% endif %}
+
+                            {% if app.user %}
+                                <div class="mb-3">
+                                    Estás identificado como {{ app.user.username }}, pulsa para,  <a href="{{ path('app_logout') }}">Cerrar Sesión</a>
+                                </div>
+                            {% endif %}
+
+                            <label for="inputUsername">Usuario</label>
+                            <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" required autofocus><br>
+                            <label for="inputPassword">Contraseña</label>
+                            <input type="password" name="password" id="inputPassword" class="form-control" required>
+
+                            <input type="hidden" name="_csrf_token"
+                                value="{{ csrf_token('authenticate') }}"
+                            >
+
+                            {#
+                                Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+                                See https://symfony.com/doc/current/security/remember_me.html
+
+                                <div class="checkbox mb-3">
+                                    <label>
+                                        <input type="checkbox" name="_remember_me"> Remember me
+                                    </label>
+                                </div>
+                            #}
+
+                            <button class="btn btn-light mt-2" type="submit">Acceder</button>
+                        </form>
+                    </div>
+                    <h4 class="tituloBold">¿Aún no te has registrado?</h4>
+                    <a href="{{ path('app_registro') }}">Registrarse</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

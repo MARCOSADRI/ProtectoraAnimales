@@ -1,0 +1,40 @@
+body{
+    font-family: 'Nunito Sans', sans-serif;
+    background-color: #faf4fa;
+
+}
+#titulo{
+    font-size: 65px;
+    font-family: 'Caveat', cursive;
+}
+#fila1{
+    margin-top: 65px;
+}
+#fila1admin{
+    margin-top: 55px;
+}
+#fila2admin{
+    margin-bottom: 20px;
+}
+#fila3admin{
+    margin-bottom: 40px;
+}
+.sombreado{
+    box-shadow: 5px 10px 10px rgb(82, 77, 77);
+}
+.borde{
+    border: 1px solid gray;
+}
+.tituloYanone{
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+    font-size: 55px;
+}
+#img1{
+    width: 266.84px;
+}
+#img2{
+    width: 266.84px;
+}
+#img3{
+    width: 395.57px;
+}

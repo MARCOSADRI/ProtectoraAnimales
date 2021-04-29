@@ -18,11 +18,6 @@ class Enfermedad
     private $id;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $historial;
-
-    /**
      * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $enfermedad;
@@ -35,18 +30,6 @@ class Enfermedad
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getHistorial(): ?int
-    {
-        return $this->historial;
-    }
-
-    public function setHistorial(?int $historial): self
-    {
-        $this->historial = $historial;
-
-        return $this;
     }
 
     public function getEnfermedad(): ?string
