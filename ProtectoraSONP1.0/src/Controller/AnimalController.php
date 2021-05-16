@@ -76,28 +76,24 @@ class AnimalController extends AbstractController
     en la tabla de animales*/
 
     /**
-     * @Route("/{ficha}", name="animal_show", methods={"GET"})
+     * @Route("/{ficha}", name="animal_show", methods={"GET","POST"})
      */
-    public function show(Animal $animal): Response
-    {
-        return $this->render('animal/show.html.twig', [
-            'animal' => $animal,
-        ]);
-    }
-
-    /**
-     * @Route("/{ficha}/enfermedad", name="app_registro_enfermedad", methods={"GET","POST"})
-     */
-    public function anadirEnfermedad(Request $request): Response
+    public function show(Animal $animal, Request $request): Response
     {
         $enfermedad = new Enfermedad();
 
         $formEnfermedad = $this->createForm(EnfermedadType::class, $enfermedad);
         $formEnfermedad->handleRequest($request);
 
+        /*Llamada a Entity Manager*/
+        $em = $this->getDoctrine()->getManager();
+
+        /*Comprueba si ese formulario ha sido procesado, al no cumplir cualquiera de las dos 
+        opciones, no entra en este formulario*/
         if($formEnfermedad->isSubmitted() && $formEnfermedad->isValid()){
-            $em = $this->getDoctrine()->getManager();
-            
+            $em->persist($enfermedad);
+            $em->flush();
+
 
 
 
@@ -106,8 +102,11 @@ class AnimalController extends AbstractController
 
 
 
-        return $this->render('animal/new_enfermedad.html.twig', [
-            'enfermedad' => $enfermedad,
+
+
+
+        return $this->render('animal/show.html.twig', [
+            'animal' => $animal,
             'formE' => $formEnfermedad->createView(),
         ]);
     }
@@ -125,6 +124,26 @@ class AnimalController extends AbstractController
 
 
 
+
+
+    /**
+     * @Route("/{ficha}/enfermedad", name="app_registro_enfermedad", methods={"GET","POST"})
+     */
+    /* public function anadirEnfermedad(Request $request): Response
+    {
+        $enfermedad = new Enfermedad();
+
+        $formEnfermedad = $this->createForm(EnfermedadType::class, $enfermedad);
+        $formEnfermedad->handleRequest($request);
+
+        if($formEnfermedad->isSubmitted() && $formEnfermedad->isValid()){
+            $em = $this->getDoctrine()->getManager();
+        }
+        return $this->render('animal/show.html.twig', [
+            'enfermedad' => $enfermedad,
+            'formE' => $formEnfermedad->createView(),
+        ]);
+    } */
 
 
     /**

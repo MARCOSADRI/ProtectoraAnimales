@@ -15,3 +15,6 @@ body{
     border: 1px solid fuchsia;
     border-radius: 100px;
 }
+#botones_superiores button{
+    margin: 5px;
+}

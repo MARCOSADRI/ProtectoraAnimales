@@ -23,20 +23,11 @@
                         <div class="col-md-6">
                             <h1 id="title">{{ animal.nombreA }}</h1>
                         </div>
-                        <div class="col-md-6 d-flex flex-row-reverse">
-                            <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Gestionar Animal
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    {# Registro de enfermedad #}
-                                    <a class="dropdown-item" href="{{ path('app_registro_enfermedad', {'ficha': animal.ficha}) }}">Registrar Enfermedad</a>
-                                    {# Registro de vacuna #}
-                                    <a class="dropdown-item" href="#">Registrar Vacunación</a>
-                                    {# Registro de revisión #}
-                                    <a class="dropdown-item" href="#">Registrar Revisión</a>
-                                </div>
-                            </div>
+                        <div class="col-md-6 d-flex flex-row-reverse p-3" id="botones_superiores">
+                            {# Esto es temporal #}
+                            <button type="button" class="btn btn-primary" id="btn_abrir_dialog_enfermedad">Enfermedad</button>
+                            <button class="btn btn-primary" id="btn_abrir_dialog_vacuna">Vacuna</button>
+                            <button class="btn btn-primary" id="btn_abrir_dialog_revision">Revisión</button>
                         </div>
                     </div>
                 </div>
@@ -117,6 +108,15 @@
                             </div>
                             
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            {# Inicio de los DIALOGS UI #}
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="dialog_enf" title="Añadir enfermedad">   
+                        {{ include('forms_ficha/_form_enf.html.twig') }}
                     </div>
                 </div>
             </div>
