@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ficha{% endblock %}
+
+{% block body %}
+    <h1>Ficha</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ ficha.id }}</td>
+            </tr>
+            <tr>
+                <th>Esterilizado</th>
+                <td>{{ ficha.esterilizado ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Fallecido</th>
+                <td>{{ ficha.fallecido ? 'Yes' : 'No' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('ficha_index') }}">back to list</a>
+
+    <a href="{{ path('ficha_edit', {'id': ficha.id}) }}">edit</a>
+
+    {{ include('ficha/_delete_form.html.twig') }}
+{% endblock %}

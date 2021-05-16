@@ -1,0 +1,71 @@
+{# Formulario en el que se va a fitrar por especie, raza, tamaño, edad y si está esterilizado #}
+<form method="POST" action="{{ accion }}">
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-4">
+                <label for="nombre"><strong>Nombre</strong></label>
+                <input type="text" class="form-control" id="nombre" name="nombre" aria-describedby="nombre">
+            </div>
+            <div class="col-md-4">
+                <label for="especie"><strong>Especie</strong></label>
+                <select class="form-control" name="especie" id="raza">
+                    <option value="1">Perro</option>
+                    <option value="2">Gato</option>
+                    <option value="3">Pájaro</option>
+                    <option value="4">Roedor</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label for="raza"><strong>Raza</strong></label>
+                <select class="form-control" id="raza" name="raza">
+                    <option value="1">Pastor Alemán</option>
+                    <option value="2">Labrador</option>
+                    <option value="3">Siamés</option>
+                    <option value="4">Periquito</option>
+                    <option value="5">Ingles de pelo corto</option>
+                    <option value="6">Persa</option>
+                    <option value="7">Ragdoll</option>
+                    <option value="8">Bengala</option>
+                    <option value="9">Bulldog</option>
+                    <option value="10">Caniche</option>
+                    <option value="11">Gran Danés</option>
+                    <option value="12">Hamster ruso</option>
+                    <option value="13">Hamster chino</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label for="tamano"><strong>Tamaño</strong></label>
+                <select class="form-control" name="tamano" id="tamano">
+                    <option value="1">Grande</option>
+                    <option value="2">Gato</option>
+                    <option value="1">Pájaro</option>
+                    <option value="2">Roedor</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label for="edad"><strong>Edad</strong></label>
+                <input type="text" class="form-control" id="edad" name="edad" aria-describedby="edad">
+            </div>
+            <div class="col-md-4">
+                <label for="sexo"><strong>Sexo</strong></label>
+                <input type="text" class="form-control" id="sexo" name="sexo" aria-describedby="sexo">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4" style="display:none">
+                <label style="color:red" for="fotoInput">Insertar foto del animal (Ocultar)</label>
+                <input class="form-control" type="file" name="file" id="file">
+            </div>
+            <div class="col-md-4" style="display:none">
+                <label style="color:red" for="accion">Tipo de acción (Ocultar)</label>
+                <input type="text" id="accion" class="form-control" name="accion">
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">{{ etiqueta_btn_enviar|default('Registrar') }}</button>
+</form>
+{% block javascripts %}
+    <script src="{{ asset('js/principal.js') }}" type="text/javascript">
+{% endblock %}

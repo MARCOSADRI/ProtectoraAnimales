@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Ficha{% endblock %}
+
+{% block body %}
+    <h1>Edit Ficha</h1>
+
+    {{ include('ficha/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('ficha_index') }}">back to list</a>
+
+    {{ include('ficha/_delete_form.html.twig') }}
+{% endblock %}

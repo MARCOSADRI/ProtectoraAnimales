@@ -1,0 +1,164 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Protectora SOPP{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('css/principal1.css') }}" type="text/css" rel="stylesheet"/>
+    <!-- Caveat Regular 400 -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat&display=swap" rel="stylesheet"> 
+    <!-- Nunito Sans -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200&display=swap" rel="stylesheet"> 
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz:wght@500&display=swap" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+    {# Si hay usuario logueado en la aplicación #}
+    {% if app.user %}
+        {# Si está registrado como un administrador #}
+        {% if is_granted('ROLE_ADMIN') %}
+            <div class="row justify-content-center" id="fila1admin">
+                <div class="col-md-6" id="panel_control">
+                    <h1 class="tituloYanone">Panel de administración</h1>
+                </div>
+            </div> 
+            {# Fila principal #}
+            <div class="row" id="filaOpcionesPrincipal">
+                <div class="col-md-12">
+                    <div class="row" id="fila2admin">
+                        {# Dar de alta a un animal #}
+                        <div class="col-sm-4">
+                            <div class="card card-principal">
+                                <img class="card-img-top" src="img/iconoAnimales.jpg" alt="Card image cap" id="img1">
+                                <div class="card-body">
+                                    <h5 class="card-title"><strong>Alta de animal</strong></h5>
+                                    <p class="card-text">Dar de alta a un animal con todas sus características.</p>
+                                    <button id="altaPerroButton" class="btn btn-primary">Dar de alta</button>
+                                </div>
+                            </div>
+                        </div>
+                        {# Editar características de un animal #}
+                        <div class="col-sm-4">
+                            <div class="card card-principal">
+                                <img class="card-img-top" src="img/anim1.jpg" alt="Card image cap" id="img2">
+                                <div class="card-body">
+                                    <h5 class="card-title"><strong>Administrar animales</strong></h5>
+                                    <p class="card-text">Administrar animales ingresados en el refugio.</p>
+                                    <a href="#" class="btn btn-primary">Administrar</a>
+                                </div>
+                            </div>
+                        </div>
+                        {# Administrar usuarios #}
+                        <div class="col-sm-4">
+                            <div class="card card-principal">
+                                <img class="card-img-top" src="img/usuarios1.png" alt="Card image cap">
+                                <div class="card-body">
+                                    <h5 class="card-title"><strong>Administrar usuarios</strong></h5>
+                                    <p class="card-text">Administración de usuarios de la aplicación.</p>
+                                    <a href="#" class="btn btn-primary">Administrar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" id="fila3admin">
+                        {# Ingresar nueva especie #}
+                        <div class="col-sm-4">
+                            <div class="card card-principal">
+                            <img class="card-img-top" src="img/especies1.jpg" alt="Card image cap" id="img3">
+                                <div class="card-body">
+                                    <h5 class="card-title"><strong>Agregar nueva especie</strong></h5>
+                                    <p class="card-text">Registrar nueva especie en el sistema.</p>
+                                    <a href="#" class="btn btn-primary">Dar de alta</a>
+                                </div>
+                            </div>
+                        </div>
+                        {# Ingresar nueva raza #}
+                        <div class="col-sm-4">
+                            <div class="card card-principal">
+                                <img class="card-img-top" src="img/razas2.jpg" alt="Card image cap">
+                                <div class="card-body">
+                                    <h5 class="card-title"><strong>Registrar nueva raza</strong></h5>
+                                    <p class="card-text">Registrar nueva raza en el sistema.</p>
+                                    <a href="#" class="btn btn-primary">Dar de alta</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {# Formulario añadir animal #}
+            <div class="row" id="regionAnadir" style="display:none">
+                <div class="col-md-12">
+                    <div class="card mt-2">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h1>Registrar animal</h1>
+                                </div>
+                            </div>
+                            {# Se añade el formulario a la plantilla #}
+                            {# Contenedor imagen de muestra #}
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="contenedor_imagen" id="contenedorImg1">
+                                    </div>
+                                </div>
+                                <div class="col-md-10">
+                                    {% include "formularios/_formulario_universal.html.twig" with {"accion": path("app_pagina_principal")} %}
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>           
+        {% elseif is_granted('ROLE_USER') %}
+            <div class="row" id="fila1">
+                <div class="col-md-12">
+                    <h1 id="titulo">Elige a tu peludo...</h1>
+                </div>
+            </div>
+            {# Fila 2 #}
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card mt-3 borde">
+                        <img class="card-img-top" src="img/montaje_card.png" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title"><strong>¡Elige a tu peludo de la manera más cómoda!</strong></h5>
+                            <p class="card-text">En Protectoras SONP proporcionamos la mejor selección de tu peludo a través de nuestros filtros, ¡Aunque eso no debería importar para adoptar a un peludo!</p>
+                            <p class="card-text"><small class="text-muted">Protectoras SONP</small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {# Fila 3 #}
+            <div class="row mt-4 mb-5 d-flex justify-content-center">
+                <div class="col-sm-4">
+                    <div class="card borde">
+                        <div class="card-body">
+                            <h5 class="card-title"><strong>Filtrado por preferencias</strong></h5>
+                            <p class="card-text">Formulario donde se podrán elegir las preferencias del peludo.</p>
+                            <a href="#" class="btn btn-primary">Consultar</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="card borde">
+                        <div class="card-body">
+                            <h5 class="card-title"><strong>Ver todos los peludos</strong></h5>
+                            <p class="card-text">Consultar todos los peludos con los que contamos.</p>
+                            <a href="#" class="btn btn-primary">Consultar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        {% endif %}
+    {% endif %}
+    {# Fila 1 #}
+    {% block javascripts %}
+        <script src="{{ asset('js/principal.js') }}" type="text/javascript">
+    {% endblock %}
+{% endblock %}
