@@ -1,0 +1,23 @@
+#titulo1{
+    margin-top: 65px;
+    font-family: 'Caveat', cursive;
+    font-size: 50px;
+}
+#carouselExampleCaptions{
+    margin-top: 20px;
+    width: 50%;
+    box-shadow: 5px 10px 10px rgb(82, 77, 77);
+}
+body{
+    font-family: 'Nunito Sans', sans-serif;
+}
+.fotos_card{
+    /* box-shadow: 5px 10px 10px rgb(82, 77, 77); */
+    border-radius: 3px;
+}
+#gatoPerro{
+    height: 340px;
+}
+.pie_card{
+    margin-bottom: 20px;
+}

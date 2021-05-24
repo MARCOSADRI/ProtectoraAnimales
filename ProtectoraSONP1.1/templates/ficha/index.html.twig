@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ficha index{% endblock %}
+
+{% block body %}
+    <h1>Ficha index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Esterilizado</th>
+                <th>Fallecido</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for ficha in fichas %}
+            <tr>
+                <td>{{ ficha.id }}</td>
+                <td>{{ ficha.esterilizado ? 'Yes' : 'No' }}</td>
+                <td>{{ ficha.fallecido ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('ficha_show', {'id': ficha.id}) }}">show</a>
+                    <a href="{{ path('ficha_edit', {'id': ficha.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('ficha_new') }}">Create new</a>
+{% endblock %}

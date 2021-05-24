@@ -1,0 +1,104 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Panel de Administración{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('css/principal1.css') }}" type="text/css" rel="stylesheet"/>
+    <!-- Caveat Regular 400 -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat&display=swap" rel="stylesheet"> 
+    <!-- Nunito Sans -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200&display=swap" rel="stylesheet"> 
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz:wght@500&display=swap" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+    {# Si hay una sesión activa en la aplicación #}
+    {% if app.user %}
+        <div class="row justify-content-center" id="fila1admin">
+            <div class="col-md-6" id="panel_control">
+                <h1 class="tituloYanone">Panel de administración</h1>
+            </div>
+        </div> 
+        {# Fila principal #}
+        <div class="row" id="region_menu_opciones">
+            <div class="col-md-12">
+                <div class="row" id="fila2admin">
+                    {# Dar de alta a un animal #}
+                    <div class="col-sm-4">
+                        <div class="card card-principal">
+                            <img class="card-img-top" src="../img/iconoAnimales.jpg" alt="Card image cap" id="img1">
+                            <div class="card-body">
+                                <h5 class="card-title"><strong>Alta de animal</strong></h5>
+                                <p class="card-text">Dar de alta a un animal con todas sus características.</p>
+                                <a href="{{ path('animal_new') }}" id="btn_alta_animal" class="btn btn-primary">Dar de alta</a>
+                            </div>
+                        </div>
+                    </div>
+                    {# Editar características de un animal #}
+                    <div class="col-sm-4">
+                        <div class="card card-principal">
+                            <img class="card-img-top" src="../img/anim1.jpg" alt="Card image cap" id="img2">
+                            <div class="card-body">
+                                <h5 class="card-title"><strong>Administrar animales</strong></h5>
+                                <p class="card-text">Administrar animales ingresados en el refugio.</p>
+                                <button id="btn_administrar_animales" class="btn btn-primary">Administrar</a>
+                            </div>
+                        </div>
+                    </div>
+                    {# Administrar usuarios #}
+                    <div class="col-sm-4">
+                        <div class="card card-principal">
+                            <img class="card-img-top" src="../img/usuarios1.png" alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title"><strong>Administrar usuarios</strong></h5>
+                                <p class="card-text">Administración de usuarios de la aplicación.</p>
+                                <a href="#" class="btn btn-primary">Administrar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {# Tabla del listado de animales #}
+        <div class="row" style="display:none" id="region_listado_animales"
+            <div class="col-md-12">
+                <table id="tabla_listado" class="table text-center">
+                    <thead>
+                        <tr>
+                            <th>Foto</th>
+                            <th>Nombre</th>
+                            <th>Sexo</th>
+                            <th>Edad</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for animal in animals %}
+                        <tr>
+                            <td id="td_img_estado"><img id="img_listado" src="../img/{{ animal.foto }}"</td>
+                            <td>{{ animal.nombreA }}</td>
+                            <td>{{ animal.sexo }}</td>
+                            <td>{{ animal.edad }}</td>
+                            <td>
+                                <a href="{{ path('animal_show', {'ficha': animal.ficha}) }}">Ficha</a><br>
+                                <a href="{{ path('animal_edit', {'ficha': animal.ficha}) }}">Editar</a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="6">No se han encontrado datos</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    {% endif %}
+    {% block javascripts %}
+        <script src="{{ asset('js/principal.js') }}" type="text/javascript">
+    {% endblock %}
+    
+{% endblock %}

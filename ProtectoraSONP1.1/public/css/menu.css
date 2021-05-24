@@ -1,0 +1,20 @@
+/*EStilo de la barra completa*/
+.navbar{
+    justify-content: space-around;
+    background: linear-gradient(to bottom, #000 0%, #666666 95%);
+    padding: 0.2rem;
+}
+/*Estilo de la imágen SONP*/
+#imgCabecera{
+    width: 90px;
+}
+#botones{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: right;
+}
+#botones a{
+    margin: 3px;
+    padding: 5px;
+}

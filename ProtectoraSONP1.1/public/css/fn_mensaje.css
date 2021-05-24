@@ -1,0 +1,19 @@
+#mensaje_emergente{
+    position: absolute;
+    display: flex;
+    color: white;
+    right: 20px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 12px;
+    text-align: center;
+    box-shadow: 5px 10px 10px rgb(82, 77, 77);
+    top: 15px;
+}
+#cadena_mensaje{
+    margin-left: 5px;
+}
+#cadena_mensaje h3{
+    font-size: 1.25rem;
+}

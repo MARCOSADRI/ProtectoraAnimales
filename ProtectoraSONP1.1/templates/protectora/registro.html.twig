@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Registro usuarios{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('css/registro.css') }}" type="text/css" rel="stylesheet"/>
+    <!-- Caveat Regular 400 -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat&display=swap" rel="stylesheet"> 
+    <!-- Nunito Sans -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200&display=swap" rel="stylesheet"> 
+{% endblock %}
+
+{% block body %}
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-5">
+            <div class="card" id="campo">
+                <div class="card-header text-center">
+                    <h1 class="titulo">Registro</h1>
+                </div>
+                <div class="card-body">
+                    {% include "ficheros_comunes/_mensajes.html.twig" %}
+                    {# Introducir en el formulario campos acordes con la base de datos #}
+                    <form method="POST" action="{{ path("app_registro") }}" id="formulario">
+                        <div class="form-group">
+                            <label for="nombre"><h5>Introducir nombre de usuario.</h5></label>
+                            <input type="text" class="form-control" id="nombre" name="nombre" autocomplete="off">
+                            <label for="clave" class="mt-2"><h5>Introducir contraseña.</h5></label>
+                            <input type="password" class="form-control" id="clave" name="clave" autocomplete="off">
+                            <span id="introducir"></span>
+                        </div>
+                        <button id="registro" type="submit" class="btn btn-success">{{ etiqueta_btn_enviar|default('Registrarse') }}</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>  
+    {% block javascripts %}
+        <script src="{{ asset('js/registro.js') }}" type="text/javascript">
+    {% endblock %}
+{% endblock %}

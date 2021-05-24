@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nueva Enfermedad{% endblock %}
+
+{% block body %}
+    <h1>Crear nueva ficha</h1>
+
+    {{ include('forms_ficha/_form_enf.html.twig') }}
+
+   {# <a href="{{ path('ficha_index') }}">back to list</a> #}
+{% endblock %}

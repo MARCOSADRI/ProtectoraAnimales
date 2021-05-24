@@ -1,0 +1,31 @@
+{{ form_start(form) }}
+    {# {{ form_widget(form) }} #}
+    <div class="row">
+        <div class="col-md-4">
+            {{ form_row(form.nombreA) }}
+        </div> 
+        <div class="col-md-4">
+            {{ form_row(form.sexo) }}
+        </div> 
+        <div class="col-md-4">
+            {{ form_row(form.especie) }}
+        </div> 
+    </div> 
+    <div class="row">
+        <div class="col-md-4">
+            {{ form_row(form.edad) }}
+        </div> 
+        <div class="col-md-4">
+            {{ form_row(form.tamano) }}
+        </div> 
+        <div class="col-md-4">
+            {{ form_row(form.raza) }}
+        </div> 
+    </div> 
+    <div class="row">
+        <div class="col-md-4">
+            {{ form_row(form.foto) }}
+        </div> 
+    </div> 
+    <button class="btn btn-success mt-4">{{ button_label|default('Registrar') }}</button>
+{{ form_end(form) }}

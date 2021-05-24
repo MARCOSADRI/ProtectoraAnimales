@@ -1,0 +1,20 @@
+body{
+    font-family: 'Nunito Sans', sans-serif;
+}
+#title{
+    font-size: 50px;
+}
+.columna-foto{
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+}
+.contenedor-foto{
+    height: 200px;
+    width: 200px;
+    border: 1px solid fuchsia;
+    border-radius: 100px;
+}
+#botones_superiores button{
+    margin: 5px;
+}
