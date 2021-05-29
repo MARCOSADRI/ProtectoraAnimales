@@ -19,6 +19,16 @@ class AnimalRepository extends ServiceEntityRepository
         parent::__construct($registry, Animal::class);
     }
 
+    /*Función encargada de listar los animales adoptados o sin adoptar*/
+    public function findByDisponible(){
+        return $this->createQueryBuilder('a')
+        ->andWhere('a.usuario IS NULL') //Si es nulo, el animal está sin adoptar.
+        ->orderBy('a.id', 'ASC')
+        ->getQuery()
+        ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Animal[] Returns an array of Animal objects
     //  */

@@ -40,6 +40,17 @@ class AnimalController extends AbstractController
     }
 
     /**
+     * @Route("/", name="animal_disponible", methods={"GET"})
+     */
+    public function animalesDisponibles(AnimalRepository $ar): Response
+    {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+        return $this->render('animal/index.html.twig', [
+            'animal' => $ar->findByDisponible(),
+        ]);
+    }
+
+    /**
      * @Route("/new", name="animal_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
@@ -152,12 +163,6 @@ class AnimalController extends AbstractController
     }
 
 
-
-
-
-
-
-
     /**
      * @Route("/{ficha}/edit", name="animal_edit", methods={"GET","POST"})
      */
@@ -176,6 +181,19 @@ class AnimalController extends AbstractController
             'animal' => $animal,
             'form' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/{id}", name="animal_adoptar", methods={"POST"})
+     */
+    public function adoptarAnimal(Request $request, Animal $animal): Response
+    {
+        $user = $this->getUser(); //OBTENGO AL USUARIO ACTUALMENTE LOGUEADO
+        if ($this->isCsrfTokenValid('adoptar'.$animal->getId(), $request->request->get('_token'))) {
+           $animal->setUsuario($user);
+           $this->getDoctrine()->getManager()->flush();
+        }
+       return $this->redirectToRoute('animal_disponible');
     }
 
     /**
