@@ -19,6 +19,24 @@ class EnfermedadRepository extends ServiceEntityRepository
         parent::__construct($registry, Enfermedad::class);
     }
 
+    /*Función encargada de realizar una consulta a la base de datos. Contiene como 
+    parámetros el nombre de la enfermedad que se vaya a introducir y el identificador
+    de la ficha para realizar el filtro por ficha de animal, devolverá 0 si el nombre
+    no existe en la tabla, filtrando por animal y devolverá 1 si el dato exíste. En el caso
+    de devolver 1, la inserción en la tabla no se realizará.*/
+    public function comprobarEnfermedades($p_nombre, $p_ficha){
+        return $this->createQueryBuilder('e')
+        ->select('count(e.id)')
+        ->andWhere('e.nombreE = :nombre')
+        ->andWhere('e.ficha = :ficha')
+        ->setParameter('nombre', $p_nombre)
+        ->setParameter('ficha', $p_ficha)
+        ->getQuery()
+        ->getOneOrNullResult()
+        ;
+    }
+
+
     // /**
     //  * @return Enfermedad[] Returns an array of Enfermedad objects
     //  */

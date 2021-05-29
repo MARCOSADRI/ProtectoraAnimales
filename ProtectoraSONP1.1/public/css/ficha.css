@@ -12,7 +12,7 @@ body{
 .contenedor-foto{
     height: 200px;
     width: 200px;
-    border: 1px solid fuchsia;
+    border: 2px solid black;
     border-radius: 100px;
 }
 #botones_superiores button{

@@ -19,6 +19,23 @@ class VacunaRepository extends ServiceEntityRepository
         parent::__construct($registry, Vacuna::class);
     }
 
+
+    /*Función que comprueba que ya haya una vacuna por ese animal*/
+    public function comprobarVacunas($p_nombre, $p_ficha){
+        return $this->createQueryBuilder('v')
+        ->select('count(v.id)')
+        ->andWhere('v.nombreV = :nombre')
+        ->andWhere('v.ficha = :ficha')
+        ->setParameter('nombre', $p_nombre)
+        ->setParameter('ficha', $p_ficha)
+        ->getQuery()
+        ->getOneOrNullResult()
+        ;
+    }
+
+
+
+
     // /**
     //  * @return Vacuna[] Returns an array of Vacuna objects
     //  */

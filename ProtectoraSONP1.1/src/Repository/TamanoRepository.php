@@ -34,32 +34,6 @@ class TamanoRepository extends ServiceEntityRepository
         return $result;
     } */
 
-    public function obtenerIdTamano2($tam){
-        $sql = 'SELECT t.id 
-                FROM App\Entity\Tamano t
-                WHERE t.id = '.$tam.'';
-        $em = $this->getEntityManager();
-        $query = $em->createQuery($sql);
-        $consulta = $query->getOneOrNullResult();
-        return $consulta;
-    }
-
-
-
-
-
-
-
-    /*Consulta que devuelve el indice de la tabla según el dato del formulario*/
-    public function obtenerIdTamano($tamano){
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.id = :comp')
-            ->setParameter('comp', $tamano)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-
 
     // /**
     //  * @return Tamano[] Returns an array of Tamano objects

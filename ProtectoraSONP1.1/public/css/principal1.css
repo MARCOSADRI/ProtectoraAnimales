@@ -68,6 +68,12 @@ body{
 #img_listado{
     width: 30%;
 }
+#imgCabecera{
+    width: 10%;
+}
 #td_img_estado{
     width: 30%;
 }
+/* .fotoMuestraAnimal{
+    width: 30%;
+} */

@@ -8,6 +8,7 @@ use App\Entity\Revision;
 use App\Entity\Vacuna;
 use App\Entity\Especie;
 use App\Entity\Ficha;
+use App\Entity\User;
 use App\Entity\Raza;
 use App\Entity\Tamano;
 use App\Form\AnimalType;
@@ -34,7 +35,7 @@ class AnimalController extends AbstractController
     public function index(AnimalRepository $animalRepository): Response
     {
         return $this->render('animal/index.html.twig', [
-            'animals' => $animalRepository->findAll(),
+            'animal' => $animalRepository->findAll(),
         ]);
     }
 
@@ -85,8 +86,8 @@ class AnimalController extends AbstractController
     /**
      * @Route("/{ficha}", name="animal_show", methods={"GET","POST"})
      */
-    public function show(Request $request, Ficha $ficha, Animal $animal,
-    VacunaRepository $vr, RevisionRepository $rr, EnfermedadRepository $er): Response
+    public function show(Request $request, Ficha $ficha, Animal $animal, 
+    RevisionRepository $rr, EnfermedadRepository $er, VacunaRepository $vr): Response
     {
         $enfermedad = new Enfermedad();
         $revision = new Revision();
@@ -95,7 +96,7 @@ class AnimalController extends AbstractController
 
         $formEnfermedad = $this->createForm(EnfermedadType::class, $enfermedad); //Formulario enferemedad
         $formEnfermedad->handleRequest($request);
-
+        
         $formRevision = $this->createForm(RevisionType::class, $revision); //Formulario revisión
         $formRevision->handleRequest($request);
 
@@ -107,32 +108,43 @@ class AnimalController extends AbstractController
 
         /*Formulario Enfermedad*/
         if($formEnfermedad->isSubmitted() && $formEnfermedad->isValid()){
-            $ficha->getId(); //Se obtiene el ID de la ficha del animal actual.
-            $enfermedad->setFicha($ficha); //Inserción del campo en Enfermedades.
-            $em->persist($enfermedad);
-            $em->flush();
+            $n_enf = $formEnfermedad->get("nombreE")->getData();
+            $comp_enf = $er->comprobarEnfermedades($n_enf, $ficha);
+            /* print_r($comp_enf); */
+            /*Control de existencia de enferemedades*/
+            if($comp_enf[1] == 0){
+                $ficha->getId(); 
+                $enfermedad->setFicha($ficha); 
+                $em->persist($enfermedad);
+                $em->flush();
+                /* $this->addFlash("success", "La enfermedad ha sido registrada correctamente."); */
+            }else{
+                $this->addFlash("warning", "El dato intriducido ya existe en la base de datos.");
+            }
+        }else if($formVacuna->isSubmitted() && $formVacuna->isValid()){
+            $n_vac = $formVacuna->get("nombreV")->getData();
+            $comp_vac = $vr->comprobarVacunas($n_vac, $ficha);
+            /* print_r($comp_vac); */
+            /*Control de existencia de vacunas*/
+            if($comp_vac[1] == 0){
+                $ficha->getId();
+                $vacuna->setFicha($ficha);
+                $em->persist($vacuna);
+                $em->flush();
+                $this->addFlash("success", "La vacuna ha sido registrada correctamente.");
+            }else{
+                $this->addFlash("warning", "El dato intriducido ya existe en la base de datos.");
+            }
         }else if($formRevision->isSubmitted() && $formRevision->isValid()){
             $ficha->getId();
             $revision->setFicha($ficha);
             $em->persist($revision);
             $em->flush();
-        }else if($formVacuna->isSubmitted() && $formVacuna->isValid()){
-            $ficha->getId();
-            $vacuna->setFicha($ficha);
-            $em->persist($vacuna);
-            $em->flush();
-        }else{
-
         }
-
-
         
-
         return $this->render('animal/show.html.twig', [
             'animal' => $animal,
             'revision' => $rr->findBy(array('ficha' => $ficha)),
-            'vacuna' => $vr->findBy(array('ficha' => $ficha)),
-            'enfermedad' => $er->findBy(array('ficha' => $ficha)),
             'formE' => $formEnfermedad->createView(),
             'formR' => $formRevision->createView(),
             'formV' => $formVacuna->createView(),
@@ -144,34 +156,6 @@ class AnimalController extends AbstractController
 
 
 
-
-
-
-
-
-
-
-
-
-
-    /**
-     * @Route("/{ficha}/enfermedad", name="app_registro_enfermedad", methods={"GET","POST"})
-     */
-    /* public function anadirEnfermedad(Request $request): Response
-    {
-        $enfermedad = new Enfermedad();
-
-        $formEnfermedad = $this->createForm(EnfermedadType::class, $enfermedad);
-        $formEnfermedad->handleRequest($request);
-
-        if($formEnfermedad->isSubmitted() && $formEnfermedad->isValid()){
-            $em = $this->getDoctrine()->getManager();
-        }
-        return $this->render('animal/show.html.twig', [
-            'enfermedad' => $enfermedad,
-            'formE' => $formEnfermedad->createView(),
-        ]);
-    } */
 
 
     /**

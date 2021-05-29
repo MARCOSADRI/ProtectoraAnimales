@@ -36,6 +36,17 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->_em->flush();
     }
 
+    /*Función que comprueba la existencia de un usuario con el mismo nombre*/
+    public function comprobarUsuarioRegistrado($nombre_usuario){
+        return $this->createQueryBuilder('u')
+        ->select('count(u.id)')
+        ->andWhere('u.username = :nombre')
+        ->setParameter('nombre', $nombre_usuario)
+        ->getQuery()
+        ->getOneOrNullResult()
+        ;
+    }
+
     // /**
     //  * @return User[] Returns an array of User objects
     //  */

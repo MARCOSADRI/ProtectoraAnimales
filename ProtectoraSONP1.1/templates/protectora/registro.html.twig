@@ -28,15 +28,37 @@
                             <input type="text" class="form-control" id="nombre" name="nombre" autocomplete="off">
                             <label for="clave" class="mt-2"><h5>Introducir contraseña.</h5></label>
                             <input type="password" class="form-control" id="clave" name="clave" autocomplete="off">
-                            <span id="introducir"></span>
+                            {# <span id="introducir"></span> #}
                         </div>
                         <button id="registro" type="submit" class="btn btn-success">{{ etiqueta_btn_enviar|default('Registrarse') }}</button>
                     </form>
+                    <a href="{{ path('app_login') }}">Volver al login</a>
                 </div>
             </div>
         </div>
     </div>  
-    {% block javascripts %}
-        <script src="{{ asset('js/registro.js') }}" type="text/javascript">
-    {% endblock %}
+    <script>
+        let formulario = document.getElementsByClassName("form-group")[0];
+        $(document).ready(function(){
+            $('#nombre').blur(function(){
+                $('#nombre').off('blur');
+                let nLabel = document.createElement("label");
+                let nInput = document.createElement("input");
+                let h5 = document.createElement("h5");
+                nLabel.for="nuevaContra";
+                nLabel.classList.add("mt-2");
+                h5.innerHTML = "Confirmar nueva contraseña.";
+                nInput.type = "password";
+                nInput.name = "claveConf";
+                nInput.id = "nuevaContra";
+                nInput.classList.add("form-control");
+                nLabel.appendChild(h5);
+                formulario.appendChild(nLabel);
+                formulario.appendChild(nInput);
+            });
+        });
+    </script>
 {% endblock %}
+{# {% block javascripts %}
+    <script src="{{ asset('js/registro.js') }}" type="text/javascript"></script>
+{% endblock %} #}

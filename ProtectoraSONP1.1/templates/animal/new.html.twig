@@ -20,13 +20,27 @@
             <div class="card mt-4">
                 <div class="card-header">
                     <h1>Registrar Animal</h1>
+                    
                 </div>
                 <div class="card-body">
-                    <div class="form-group">
-                        {{ include('animal/_form.html.twig') }}
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div id="contenedor_imagen">
+                              
+                            </div>
+                        </div>
+                        <div class="col-md-10">
+                            <div class="form-group">
+                                {{ include('animal/_form.html.twig') }}
+                            </div>
+                        </div>
                     </div>
+                    
                 </div>
             </div>
         </div>
     </div>
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('js/alta_animal.js') }}" type="module"></script> {# Archivo JavaScript Module #}
 {% endblock %}

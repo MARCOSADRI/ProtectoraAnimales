@@ -33,7 +33,7 @@ class AnimalType extends AbstractType
                 )
             ))
             ->add('foto', FileType::class, array(
-                'label' => 'FOTO: ',
+                'label' => '',
                 'attr' => array('class' => 'form-control'),
                 'data_class' => null
             ))

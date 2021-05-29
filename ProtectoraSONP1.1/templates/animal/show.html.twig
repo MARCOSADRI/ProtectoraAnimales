@@ -21,10 +21,13 @@
             <div class="card mt-3">
                 <div class="card-header">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <h1 id="title">{{ animal.nombreA }}</h1>
                         </div>
-                        <div class="col-md-6 d-flex flex-row-reverse p-3" id="botones_superiores">
+                        <div class="col-md-4 mt-3">
+                            {% include "ficheros_comunes/_mensajes.html.twig" %}
+                        </div>
+                        <div class="col-md-4 d-flex flex-row-reverse p-3" id="botones_superiores">
                             {# Esto es temporal #}
                             <button type="button" class="btn btn-primary" id="btn_abrir_dialog_enfermedad">Enfermedad</button>
                             <button type="button" class="btn btn-primary" id="btn_abrir_dialog_vacuna">Vacuna</button>
@@ -33,6 +36,8 @@
                     </div>
                 </div>
                 <div class="card-body">
+                    
+                    
                     <div class="row">
                         <div class="columna-foto col-md-3">
                             <div class="contenedor-foto ">
@@ -84,7 +89,7 @@
                                 </div>
                                 <div class="card-body">
                                     <table class="table text-center">
-                                        <thead class="thead-dark">
+                                        <thead>
                                             <th>Diagnostico</th>
                                             <th>Fecha</th>
                                             <th>Enfermedad</th>
@@ -129,30 +134,7 @@
     </div>
 
 
-    {# <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ animal.id }}</td>
-            </tr>
-            <tr>
-                <th>NombreA</th>
-                <td>{{ animal.nombreA }}</td>
-            </tr>
-            <tr>
-                <th>Sexo</th>
-                <td>{{ animal.sexo }}</td>
-            </tr>
-            <tr>
-                <th>Foto</th>
-                <td>{{ animal.foto }}</td>
-            </tr>
-            <tr>
-                <th>Edad</th>
-                <td>{{ animal.edad }}</td>
-            </tr>
-        </tbody>
-    </table> #}
+    
 
     {# <a href="{{ path('animal_index') }}">back to list</a>
 

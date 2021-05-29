@@ -23,20 +23,7 @@ let r_menu_opciones = document.getElementById("region_menu_opciones"); //Contene
 }); */
 
 
-/*Previsualización de imágen, EVENTO ONCHANGE*/
-/* document.getElementById("file").onchange = function(){
-    let contImg = document.getElementById("contenedorImg1");
-    let file = this.files[0];
-    let reader = new FileReader();
-    reader.onloadend = function(){
-        contImg.style = "background-image: url("+reader.result+")"
-    }
-    if(file){
-        reader.readAsDataURL(file);
-    }else{ //Imagen por defecto.
-        contImg.style = "background-image: url('../img/insertar_imagen.png')";
-    }
-} */
+
 
 /*Evento que muestra la tabla con el listado de animales y oculta lo demás*/
 btn_admin_animal.addEventListener("click", () => {
