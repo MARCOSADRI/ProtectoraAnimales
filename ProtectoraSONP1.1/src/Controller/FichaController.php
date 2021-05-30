@@ -54,12 +54,12 @@ class FichaController extends AbstractController
     /**
      * @Route("/{id}", name="ficha_show", methods={"GET"})
      */
-    public function show(Ficha $ficha): Response
+    /* public function show(Ficha $ficha): Response
     {
         return $this->render('ficha/show.html.twig', [
             'ficha' => $ficha,
         ]);
-    }
+    } */
 
     /**
      * @Route("/{id}/edit", name="ficha_edit", methods={"GET","POST"})

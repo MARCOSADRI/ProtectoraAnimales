@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Repository\UserRepository;
+use App\Repository\AnimalRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,16 +22,6 @@ class ProtectoraController extends AbstractController
     public function __construct(UserPasswordEncoderInterface $userPassword)
     {
         $this->userPassword = $userPassword;
-    }
-
-    /**
-     * @Route("/", name="protectora")
-     */
-    public function index(): Response
-    {
-        return $this->render('protectora/bienvenida.html.twig', [
-            'controlador_bienvenida' => 'ProtectoraController',
-        ]);
     }
 
     /**
@@ -69,4 +60,6 @@ class ProtectoraController extends AbstractController
             'controladorRegistro' => $user,
         ]);
     }
+
+    
 }

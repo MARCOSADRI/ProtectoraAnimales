@@ -74,6 +74,9 @@ body{
 #td_img_estado{
     width: 30%;
 }
-/* .fotoMuestraAnimal{
-    width: 30%;
-} */
+.contenedor-foto-card{
+    height: 320px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}

@@ -1,5 +1,14 @@
 $(function () {
-    $('#filtro1').hide();
+    $('#filtro').hide(); //Esconde botón de búsqueda.
+    $('#filtro1').hide(); //Esconde botón de nueva búsqueda.
+    $('#region_listado_animales').hide(); //Esconde región del listado de animales.
+
+    $('#btn_administrar_animales').click(function(){
+        $('#filtro').show();
+        $('#region_listado_animales').show();
+        $('#region_menu_opciones').hide();
+    });
+
     $('#filtro').click(function (e) {
         e.preventDefault();
         $('#dialog').dialog('open');

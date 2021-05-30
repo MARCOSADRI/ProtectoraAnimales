@@ -20,14 +20,14 @@ class RazaRepository extends ServiceEntityRepository
     }
 
     /*Consulta que devuelve el indice de la tabla según el dato del formulario*/
-    public function obtenerIdTamano($raza){
+    /* public function obtenerIdTamano($raza){
         return $this->createQueryBuilder('r')
             ->andWhere('r.id = :comp')
             ->setParameter('comp', $raza)
             ->getQuery()
             ->getOneOrNullResult()
         ;
-    }
+    } */
 
     // /**
     //  * @return Raza[] Returns an array of Raza objects

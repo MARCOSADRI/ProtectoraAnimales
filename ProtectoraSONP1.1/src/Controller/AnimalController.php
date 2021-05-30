@@ -33,20 +33,9 @@ class AnimalController extends AbstractController
      * @Route("/", name="animal_index", methods={"GET"})
      */
     public function index(AnimalRepository $animalRepository): Response
-    {
+    {   
         return $this->render('animal/index.html.twig', [
             'animal' => $animalRepository->findAll(),
-        ]);
-    }
-
-    /**
-     * @Route("/", name="animal_disponible", methods={"GET"})
-     */
-    public function animalesDisponibles(AnimalRepository $ar): Response
-    {
-        $this->denyAccessUnlessGranted('ROLE_USER');
-        return $this->render('animal/index.html.twig', [
-            'animal' => $ar->findByDisponible(),
         ]);
     }
 
@@ -98,7 +87,7 @@ class AnimalController extends AbstractController
      * @Route("/{ficha}", name="animal_show", methods={"GET","POST"})
      */
     public function show(Request $request, Ficha $ficha, Animal $animal, 
-    RevisionRepository $rr, EnfermedadRepository $er, VacunaRepository $vr): Response
+    RevisionRepository $rr, EnfermedadRepository $er, VacunaRepository $vr, AnimalRepository $ar): Response
     {
         $enfermedad = new Enfermedad();
         $revision = new Revision();
@@ -155,12 +144,15 @@ class AnimalController extends AbstractController
         
         return $this->render('animal/show.html.twig', [
             'animal' => $animal,
+            'animale' => $ar->findAll(),
             'revision' => $rr->findBy(array('ficha' => $ficha)),
             'formE' => $formEnfermedad->createView(),
             'formR' => $formRevision->createView(),
             'formV' => $formVacuna->createView(),
         ]);
     }
+
+
 
 
     /**
@@ -184,19 +176,6 @@ class AnimalController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="animal_adoptar", methods={"POST"})
-     */
-    public function adoptarAnimal(Request $request, Animal $animal): Response
-    {
-        $user = $this->getUser(); //OBTENGO AL USUARIO ACTUALMENTE LOGUEADO
-        if ($this->isCsrfTokenValid('adoptar'.$animal->getId(), $request->request->get('_token'))) {
-           $animal->setUsuario($user);
-           $this->getDoctrine()->getManager()->flush();
-        }
-       return $this->redirectToRoute('animal_disponible');
-    }
-
-    /**
      * @Route("/{id}", name="animal_delete", methods={"POST"})
      */
     public function delete(Request $request, Animal $animal): Response
@@ -209,4 +188,8 @@ class AnimalController extends AbstractController
 
         return $this->redirectToRoute('animal_index');
     }
+
+    
+
+    
 }

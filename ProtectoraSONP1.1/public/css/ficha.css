@@ -12,8 +12,11 @@ body{
 .contenedor-foto{
     height: 200px;
     width: 200px;
-    border: 2px solid black;
+    border: 1px dotted black;
     border-radius: 100px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
 }
 #botones_superiores button{
     margin: 5px;
