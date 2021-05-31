@@ -117,7 +117,7 @@ class AnimalController extends AbstractController
                 $enfermedad->setFicha($ficha); 
                 $em->persist($enfermedad);
                 $em->flush();
-                /* $this->addFlash("success", "La enfermedad ha sido registrada correctamente."); */
+                $this->addFlash("success", "La enfermedad ha sido registrada correctamente.");
             }else{
                 $this->addFlash("warning", "El dato intriducido ya existe en la base de datos.");
             }
@@ -140,6 +140,7 @@ class AnimalController extends AbstractController
             $revision->setFicha($ficha);
             $em->persist($revision);
             $em->flush();
+            $this->addFlash("success", "La revisión ha sido registrada correctamente.");
         }
         
         return $this->render('animal/show.html.twig', [

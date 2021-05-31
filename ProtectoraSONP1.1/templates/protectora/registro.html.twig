@@ -30,15 +30,17 @@
                             <input type="password" class="form-control" id="clave" name="clave" autocomplete="off">
                             {# <span id="introducir"></span> #}
                         </div>
-                        <button id="registro" type="submit" class="btn btn-success">{{ etiqueta_btn_enviar|default('Registrarse') }}</button>
+                        <button id="registro" type="submit" class="btn btn-success" disabled>{{ etiqueta_btn_enviar|default('Registrarse') }}</button>
                     </form>
-                    <a href="{{ path('app_login') }}">Volver al login</a>
+                    <a style="margin-top: 5px" href="{{ path('app_login') }}">Volver al login</a>
                 </div>
             </div>
         </div>
     </div>  
     <script>
+        let contrasena = document.getElementById("clave");
         let formulario = document.getElementsByClassName("form-group")[0];
+
         $(document).ready(function(){
             $('#nombre').blur(function(){
                 $('#nombre').off('blur');
@@ -56,6 +58,15 @@
                 formulario.appendChild(nLabel);
                 formulario.appendChild(nInput);
             });
+        });
+        contrasena.addEventListener("blur", () => {
+            let expr1 = /\d{1}/; 
+            let result = expr1.test(contrasena.value); //Comprobación de la expresión regular
+            if(result === false){
+                alert("La contraseña tiene que tener al menos un número.");
+            }else{
+                document.getElementById("registro").disabled = false;
+            }
         });
     </script>
 {% endblock %}

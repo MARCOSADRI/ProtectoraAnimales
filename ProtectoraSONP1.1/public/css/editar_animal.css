@@ -1,0 +1,10 @@
+body{
+    font-family: 'Nunito Sans', sans-serif;
+}
+#contenedor_botones{
+    display: flex;
+    margin-top: 5px;
+}
+#contenedor_botones a{
+    margin-right: 5px;
+}

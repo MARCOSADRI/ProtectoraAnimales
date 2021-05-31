@@ -26,8 +26,8 @@
                                 <div class="col-md-4">
                                     <h1 id="title">{{ animal.nombreA }}</h1>
                                 </div>
-                                <div class="col-md-4 mt-3">
-                                   
+                                <div class="col-md-4">
+                                    {% include('ficheros_comunes/_mensajes.html.twig') %}
                                 </div>
                                 {% if is_granted('ROLE_ADMIN') %}
                                     <div class="col-md-4 d-flex flex-row-reverse p-3" id="botones_superiores">
