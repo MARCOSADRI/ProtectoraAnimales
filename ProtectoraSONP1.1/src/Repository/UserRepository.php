@@ -36,7 +36,8 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->_em->flush();
     }
 
-    /*Función que comprueba la existencia de un usuario con el mismo nombre*/
+    /*Función que comprueba la existencia de un usuario con el mismo nombre. Si la función devuelve 0, 
+    no existirá ningún dato como tal, en caso contrario, el usuario en cuestión ya existirá en la base de datos*/
     public function comprobarUsuarioRegistrado($nombre_usuario){
         return $this->createQueryBuilder('u')
         ->select('count(u.id)')

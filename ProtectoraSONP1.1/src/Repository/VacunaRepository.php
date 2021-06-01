@@ -20,7 +20,11 @@ class VacunaRepository extends ServiceEntityRepository
     }
 
 
-    /*Función que comprueba que ya haya una vacuna por ese animal*/
+    /*Función encargada de realizar una consulta a la base de datos. Contiene como 
+    parámetros el nombre de la vacuna que se vaya a introducir y el identificador
+    de la ficha para realizar el filtro por ficha de animal, devolverá 0 si el nombre
+    no existe en la tabla, filtrando por animal y devolverá 1 si el dato exíste. En el caso
+    de devolver 1, la inserción en la tabla no se realizará.*/
     public function comprobarVacunas($p_nombre, $p_ficha){
         return $this->createQueryBuilder('v')
         ->select('count(v.id)')
