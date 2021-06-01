@@ -17,6 +17,7 @@ use App\Form\RevisionType;
 use App\Form\VacunaType;
 use App\Repository\AnimalRepository;
 use App\Repository\EnfermedadRepository;
+use App\Repository\FichaRepository;
 use App\Repository\RevisionRepository;
 use App\Repository\VacunaRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -29,6 +30,11 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class AnimalController extends AbstractController
 {
+    /*Controlador encargado de mostrar la pantalla principal, tanto en modo de administrado como en el 
+    modo de usuario normal. Como parámetro se proporciona el repositorio de la entidad de los animales para poder
+    realizar la muestra completa de todos los elementos de la entidad. 
+    El controlador redirige hacia la plantilla animal/index.html.twig*/
+
     /**
      * @Route("/", name="animal_index", methods={"GET"})
      */
@@ -36,8 +42,16 @@ class AnimalController extends AbstractController
     {   
         return $this->render('animal/index.html.twig', [
             'animal' => $animalRepository->findAll(),
+            /* 'ficha' => $ficha, */
         ]);
     }
+
+    /*Controlador que permite el ingreso de un nuevo animal en la aplicación. Como parámetro, se proporciona 
+    el elemento Request para poder realizar el registro de datos en la base de datos a través del formulario.
+    En él, se dará de alta el animal, a la misma vez que se realizará la inserción de la ficha del animal.
+    El formulario empleado para el alta del animal se creará a partir del archivo AnimalType.php, en el que se 
+    creará el formulario y posteriormente se tratará automaticamente en el controlador gracias al método
+    handleRequest(). Finalmente el controlador redirige a la plantilla animal/new.html.twig*/
 
     /**
      * @Route("/new", name="animal_new", methods={"GET","POST"})
@@ -81,12 +95,19 @@ class AnimalController extends AbstractController
     }
 
     /*Controlador que muestra la ficha del animal. Se le pasa como parámetro el ID de la ficha referenciado
-    en la tabla de animales*/
+    en la tabla de animales. A partir de ello, se podrán visualizar todas las características del animal que se 
+    seleccione. Como parámetros del controlador, se puede observar la clase Request para tratar los datos procedentes
+    de los diferentes formulario, la clase ficha, para poder filtrar los datos del animal a través de la ficha, los 
+    repositorios de revision, vacuna y enfermedad, con el objetivo de que a la hora de registrar alguna de las tres
+    opciones, comprobar previamente la existencia de un dato repetido en la base de datos a través de la llamada a las
+    diferentes consultas definidas en los mismos. Por último el repositorio de animal, para mostrar los datos pertinentes
+    del animal en cada página de ficha del animal.
+    */
 
     /**
      * @Route("/{ficha}", name="animal_show", methods={"GET","POST"})
      */
-    public function show(Request $request, Ficha $ficha, Animal $animal, 
+    public function show(Request $request, Ficha $ficha,  
     RevisionRepository $rr, EnfermedadRepository $er, VacunaRepository $vr, AnimalRepository $ar): Response
     {
         $enfermedad = new Enfermedad();
@@ -144,7 +165,6 @@ class AnimalController extends AbstractController
         }
         
         return $this->render('animal/show.html.twig', [
-            'animal' => $animal,
             'animale' => $ar->findAll(),
             'revision' => $rr->findBy(array('ficha' => $ficha)),
             'formE' => $formEnfermedad->createView(),
@@ -154,7 +174,11 @@ class AnimalController extends AbstractController
     }
 
 
-
+    /*Controlador encargado de editar los datos de un animal existente, muestra en el formulario los datos 
+    ya establecidos en el animal basandose en el identificador de ficha proporcionado como parámetro. 
+    Los parámetros proporcionados al controlador son la clase Request, para actualizar los nuevos datos 
+    introducidos. Por otra parte el repositorio de animales para mostrar todos los datos de un animal.
+    El controlador redirige a la plantilla animal/edit.html.twig*/
 
     /**
      * @Route("/{ficha}/edit", name="animal_edit", methods={"GET","POST"})
@@ -176,21 +200,45 @@ class AnimalController extends AbstractController
         ]);
     }
 
+    /*Controlador encargado de adoptar una animal existente. Añade el identificador del usuario normal 
+    que hay registrado en la aplicación actualmente. 
+    Los parámetros proporcionados al controlador son la clase Request, para registrar el dato introducido.
+    Además se referencia como parámetro una instancia de Animal para poder realizar el cambio sobre dicha entidad.
+    El controlador redirige hacia el controlador animal_index (Página principal)*/
+    
     /**
-     * @Route("/{id}", name="animal_delete", methods={"POST"})
+     * @Route("/{ficha}", name="animal_adoptar", methods={"POST"})
+     */
+    public function adoptarAnimal(Request $request, Animal $animal): Response
+    {
+        $user = $this->getUser(); //OBTENGO AL USUARIO ACTUALMENTE LOGUEADO
+        if ($this->isCsrfTokenValid('adoptar'.$animal->getFicha(), $request->request->get('_token'))) {
+           
+           $animal->setUsuario($user);
+           $this->getDoctrine()->getManager()->flush();
+        }
+
+       return $this->redirectToRoute('animal_index');
+    }
+
+    /*Controlador encargado de eliminar los datos de un animal existente a partir del parámetro de ruta.
+    Los parámetros proporcionados al controlador son la clase Request, para actualizar los nuevos datos 
+    introducidos. Por otra parte una instancia de la clase Animal para realizar la acción sobre tal entidad.
+    El controlador redirige hacia el controlador animal_index (Página principal)*/
+
+    /**
+     * @Route("/{ficha}", name="animal_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Animal $animal): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$animal->getId(), $request->request->get('_token'))) {
+        echo "esto entra";
+        if ($this->isCsrfTokenValid('delete'.$animal->getFicha(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
+            /* $id_animal = $ar->findOneBy(array('ficha' => $request->request->get('_token'))); */
             $entityManager->remove($animal);
             $entityManager->flush();
         }
 
         return $this->redirectToRoute('animal_index');
     }
-
-    
-
-    
 }

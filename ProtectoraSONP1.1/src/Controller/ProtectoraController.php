@@ -24,6 +24,13 @@ class ProtectoraController extends AbstractController
         $this->userPassword = $userPassword;
     }
 
+    /*Controlador encargado de registrar un usuario en la entidad User. Los parámetros proporcionados al controlador
+    son la clase Request para realizar la inserción de los datos en la respectiva tabla y el repositorio de usuarios
+    para comprobar que dicho usuario no exista en la base de datos. Para el registro de la contraseña, se va a 
+    crear una instancia de la clase UserPasswordEncoderInterface a través del constructor
+    , con el objetivo de codificar la contraseña una vez insertada en la base de datos. 
+    El controlador redirige hacia la plantilla protectora/registro.html.twig.*/
+
     /**
      * @Route("/registro", name="app_registro", methods={"GET","POST"})
      */
@@ -42,7 +49,7 @@ class ProtectoraController extends AbstractController
                 if($passConfirmada == $password){
                     $comp_usuario = $ur->comprobarUsuarioRegistrado($username);
                     if($comp_usuario[1] == 0){
-                         $user->setUsername($username);
+                        $user->setUsername($username);
                         $user->setRoles(['ROLE_USER']);
                         $user->setPassword($this->userPassword->encodePassword($user, $password));
                         $em->persist($user);
